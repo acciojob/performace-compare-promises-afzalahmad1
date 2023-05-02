@@ -33,15 +33,14 @@ function testPromiseAny(apiUrls) {
   });
 }
 
-
-let outputAll = document.getElementById('output-all');
-let outputAny = document.getElementById('output-any');
+document.getElementById('btn').addEventListener('click', () => {
+  const outputAll = document.getElementById('output-all');
+  const outputAny = document.getElementById('output-any');
 
   outputAll.innerHTML = 'Testing...';
   outputAny.innerHTML = 'Testing...';
 
-
- testPromiseAll(apiUrls)
+  testPromiseAll(apiUrls)
     .then((time) => {
       outputAll.innerHTML = `${time} ms`;
     })
@@ -56,3 +55,4 @@ let outputAny = document.getElementById('output-any');
     .catch((error) => {
       outputAny.innerHTML = error;
     });
+});
