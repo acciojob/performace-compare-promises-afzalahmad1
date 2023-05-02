@@ -13,3 +13,46 @@ const apiUrls = [
 ];
 
 // You can write your code here
+function fetchData(url) {
+  return fetch(url).then((response) => response.json());
+}
+
+function testPromiseAll(apiUrls) {
+  const startTime = Date.now();
+  return Promise.all(apiUrls.map(fetchData)).then(() => {
+    const endTime = Date.now();
+    return endTime - startTime;
+  });
+}
+
+function testPromiseAny(apiUrls) {
+  const startTime = Date.now();
+  return Promise.any(apiUrls.map(fetchData)).then(() => {
+    const endTime = Date.now();
+    return endTime - startTime;
+  });
+}
+
+
+let outputAll = document.getElementById('output-all');
+let outputAny = document.getElementById('output-any');
+
+  outputAll.innerHTML = 'Testing...';
+  outputAny.innerHTML = 'Testing...';
+
+
+ testPromiseAll(apiUrls)
+    .then((time) => {
+      outputAll.innerHTML = `${time} ms`;
+    })
+    .catch((error) => {
+      outputAll.innerHTML = error;
+    });
+
+  testPromiseAny(apiUrls)
+    .then((time) => {
+      outputAny.innerHTML = `${time} ms`;
+    })
+    .catch((error) => {
+      outputAny.innerHTML = error;
+    });
